@@ -8,6 +8,9 @@ const app = express();
 // Setting up PORT
 const PORT = process.env.PORT || 3000;
 
+// Empty array for Notes Data
+let notesData = [];
+
 // API Routes
 
 
