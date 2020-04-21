@@ -12,6 +12,22 @@ const PORT = process.env.PORT || 3000;
 let notesData = [];
 
 // API Routes
+// API GET
+app.get("/api/notes", function(err, res) {
+    try {
+        notesData = fs.readFileSync("./db/db.json", "utf8");
+        console.log("Success JSON file was read!");
+        notesData = JSON.parse(notesData);
+
+        // Error Handling
+    } catch (err) {
+        console.log("Error in app.get:");
+        console.log(err);
+    }
+    // Send to browser
+    res.json(notesData);
+});
+
 
 
 
