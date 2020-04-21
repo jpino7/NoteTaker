@@ -8,12 +8,17 @@ const app = express();
 // Setting up PORT
 const PORT = process.env.PORT || 3000;
 
+//Body parsing, static, and routing 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "./public")));
+
 // Empty array for Notes Data
 let notesData = [];
 
 // API Routes
 // API GET
-app.get("/api/notes", function(err, res) {
+app.get("/api/notes", function (err, res) {
     try {
         notesData = fs.readFileSync("./db/db.json", "utf8");
         console.log("Success JSON file was read!");
@@ -28,8 +33,31 @@ app.get("/api/notes", function(err, res) {
     res.json(notesData);
 });
 
+// API POST
+app.post("/api/notes", function (req, res) {
+    try {
+        notesData = fs.readFileSync("./db/db.json", "utf8");
+        console.log(notesData);
+        notesData = JSON.parse(notesData);
 
+        // Setting New Notes ID
+        req.body.id = notesData.length;
+        notesData.push(req.body);
+        notesData = JSON.stringify(notesData);
+        // Write New Note to File
+        fs.writeFile("./db/db.json", notesData, "utf8", err => {
+            if (err)
+                throw err;
+        });
 
+        res.json(JSON.parse(notesData));
+        // Error Handling
+    } catch (err) {
+        throw err;
+    }
+});
+
+// API DELETE
 
 
 
