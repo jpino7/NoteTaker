@@ -41,7 +41,7 @@ app.post("/api/notes", function (req, res) {
         // Setting New Notes ID
         req.body.id = notesData.length;
         console.log(notesData);
-        if (!notesData.isArray()) {
+        if (!Array.isArray(notesData)) {
             notesData = JSON.parse(notesData);
 
         }
