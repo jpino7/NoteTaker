@@ -96,10 +96,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-// JSON Route -- GET Request
-app.get("/api/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "db/db.json"));
-});
 
 // PORT Listener
 app.listen(PORT, () => {
